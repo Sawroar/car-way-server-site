@@ -9,6 +9,6 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', async (req, res) => {
-    res.send('doctors portal server is running');
+    res.send('Car Way server is running');
 })
 app.listen(port, () => console.log(`Car Way running on ${port}`))
