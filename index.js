@@ -33,6 +33,17 @@ async function run() {
             const option = await carWay.findOne(query)
             res.send(option)
         })
+        app.get('/bookings', async (req, res) => {
+
+            let query = {}
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+            const bookings = await bookingsCollection.find(query).toArray()
+            res.send(bookings)
+        })
         app.post('/bookings', async (req, res) => {
             const booking = req.body;
             console.log(booking);
