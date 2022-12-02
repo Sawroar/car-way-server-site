@@ -18,17 +18,27 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const carWay = client.db('carWay').collection('products')
+        const bookingsCollection = client.db('carWay').collection('bookings')
 
         app.get('/options', async (req, res) => {
             const query = {}
             const products = await carWay.find(query).toArray()
             res.send(products)
         })
+
+
         app.get('/options/:id', async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const option = await carWay.findOne(query)
             res.send(option)
+        })
+        app.post('/bookings', async (req, res) => {
+            const booking = req.body;
+            console.log(booking);
+            const result = await bookingsCollection.insertOne(booking)
+            res.send(result)
+
         })
     }
     finally {
